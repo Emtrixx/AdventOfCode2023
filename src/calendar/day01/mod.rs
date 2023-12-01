@@ -3,25 +3,26 @@ use std::fs::File;
 use std::io::{BufRead, BufReader, Lines};
 
 pub fn run() {
-    let mut numbers: HashMap<&str, u32> = HashMap::new();
-    numbers.insert("one", 1);
-    numbers.insert("two", 2);
-    numbers.insert("three", 3);
-    numbers.insert("four", 4);
-    numbers.insert("five", 5);
-    numbers.insert("six", 6);
-    numbers.insert("seven", 7);
-    numbers.insert("eight", 8);
-    numbers.insert("nine", 9);
-    numbers.insert("1", 1);
-    numbers.insert("2", 2);
-    numbers.insert("3", 3);
-    numbers.insert("4", 4);
-    numbers.insert("5", 5);
-    numbers.insert("6", 6);
-    numbers.insert("7", 7);
-    numbers.insert("8", 8);
-    numbers.insert("9", 9);
+    let mut numbers: HashMap<&str, u32> = HashMap::from([
+        ("one", 1),
+        ("two", 2),
+        ("three", 3),
+        ("four", 4),
+        ("five", 5),
+        ("six", 6),
+        ("seven", 7),
+        ("eight", 8),
+        ("nine", 9),
+        ("1", 1),
+        ("2", 2),
+        ("3", 3),
+        ("4", 4),
+        ("5", 5),
+        ("6", 6),
+        ("7", 7),
+        ("8", 8),
+        ("9", 9),
+    ]);
 
     let mut part_one_sum = 0;
     let mut sum = 0;
@@ -41,10 +42,29 @@ pub fn run() {
 }
 
 fn load_input() -> Lines<BufReader<File>> {
-    let file = File::open("../day01/input.txt").unwrap();
-    let reader = std::io::BufReader::new(file);
+    let file = File::open("src/calendar/day01/input.txt").unwrap();
+    let reader = BufReader::new(file);
     let lines = reader.lines();
     lines
+}
+
+fn part_one(line: &String) -> u32 {
+    /* First Half */
+    let mut first_num = 0;
+    let mut last_num = 0;
+
+    line.chars().for_each(|c| {
+        if c.is_digit(10) {
+            let num = c.to_digit(10).unwrap();
+            if first_num == 0 {
+                first_num = num;
+                last_num = num;
+            } else {
+                last_num = num;
+            }
+        }
+    });
+    return (first_num * 10) + last_num;
 }
 
 fn part_two(numbers: &mut HashMap<&str, u32>, line: &String) -> u32 {
@@ -69,24 +89,5 @@ fn part_two(numbers: &mut HashMap<&str, u32>, line: &String) -> u32 {
         }
     }
 
-    return (first_num * 10) + last_num;
-}
-
-fn part_one(line: &String) -> u32 {
-    /* First Half */
-    let mut first_num = 0;
-    let mut last_num = 0;
-
-    line.chars().for_each(|c| {
-        if (c.is_digit(10)) {
-            let num = c.to_digit(10).unwrap();
-            if first_num == 0 {
-                first_num = num;
-                last_num = num;
-            } else {
-                last_num = num;
-            }
-        }
-    });
     return (first_num * 10) + last_num;
 }
