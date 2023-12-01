@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Lines};
 
-pub fn day01() {
+pub fn run() {
     let mut numbers: HashMap<&str, u32> = HashMap::new();
     numbers.insert("one", 1);
     numbers.insert("two", 2);
@@ -41,7 +41,7 @@ pub fn day01() {
 }
 
 fn load_input() -> Lines<BufReader<File>> {
-    let file = File::open("src/aoc/day01/input.txt").unwrap();
+    let file = File::open("../day01/input.txt").unwrap();
     let reader = std::io::BufReader::new(file);
     let lines = reader.lines();
     lines
