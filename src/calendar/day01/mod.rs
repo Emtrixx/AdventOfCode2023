@@ -1,6 +1,5 @@
+use crate::calendar;
 use std::collections::HashMap;
-use std::fs::File;
-use std::io::{BufRead, BufReader, Lines};
 
 pub fn run() {
     let mut numbers: HashMap<&str, u32> = HashMap::from([
@@ -27,7 +26,7 @@ pub fn run() {
     let mut part_one_sum = 0;
     let mut sum = 0;
 
-    let lines = load_input();
+    let lines = calendar::load_input(1);
 
     for line in lines {
         let line = line.unwrap();
@@ -39,13 +38,6 @@ pub fn run() {
 
     println!("Part One: {}", part_one_sum);
     println!("Part Two: {}", sum);
-}
-
-fn load_input() -> Lines<BufReader<File>> {
-    let file = File::open("src/calendar/day01/input.txt").unwrap();
-    let reader = BufReader::new(file);
-    let lines = reader.lines();
-    lines
 }
 
 fn part_one(line: &String) -> u32 {
